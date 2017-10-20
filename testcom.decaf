@@ -10,6 +10,6 @@ class Main {
 		a = #$@(1+3+x);
 		b = #a;
 		c = $z ; 
-
+		PrintComp(x, a, #@@$$x + 8j, zz+23);
 	}
 }

@@ -300,6 +300,8 @@ public abstract class Tree {
     public static final int GETCOMPIM = GETCOMPRE + 1; 
     public static final int INT2COMP = GETCOMPIM + 1; 
 
+    public static final int PRINTCOMP = INT2COMP + 1;
+
 
 
     public Location loc;
@@ -656,7 +658,7 @@ public abstract class Tree {
     }
 
     /**
-      * A return statement.
+      * A print statement.
       */
     public static class Print extends Tree {
 
@@ -675,6 +677,34 @@ public abstract class Tree {
         @Override
     	public void printTo(IndentPrintWriter pw) {
     		pw.println("print");
+    		pw.incIndent();
+    		for (Expr e : exprs) {
+    			e.printTo(pw);
+    		}
+    		pw.decIndent();
+        }
+    }
+
+    /**
+     * a printComp statement
+     */
+    public static class PrintComp extends Tree {
+
+    	public List<Expr> exprs;
+
+    	public PrintComp(List<Expr> exprs, Location loc) {
+    		super(PRINTCOMP, loc);
+    		this.exprs = exprs;
+    	}
+
+        @Override
+        public void accept(Visitor v) {
+            v.visitPrintComp(this);
+        }
+
+        @Override
+    	public void printTo(IndentPrintWriter pw) {
+    		pw.println("printcomp");
     		pw.incIndent();
     		for (Expr e : exprs) {
     			e.printTo(pw);
@@ -1421,6 +1451,10 @@ public abstract class Tree {
         }
 
         public void visitPrint(Print that) {
+            visitTree(that);
+        }
+
+        public void visitPrintComp(PrintComp that) {
             visitTree(that);
         }
 

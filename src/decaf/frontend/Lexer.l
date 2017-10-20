@@ -75,6 +75,7 @@ WHITESPACE			= ([ \t]+)
 
 	// for complex
 "complex"			{ return keyword(Parser.COMPLEX); }
+"PrintComp"			{ return keyword(Parser.PRINTCOMP); }
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}

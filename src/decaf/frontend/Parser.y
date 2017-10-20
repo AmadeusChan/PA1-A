@@ -27,7 +27,7 @@ import java.util.*;
 %token VOID   BOOL  INT   STRING  COMPLEX CLASS 
 %token NULL   EXTENDS     THIS     WHILE   FOR   
 %token IF     ELSE        RETURN   BREAK   NEW
-%token PRINT  READ_INTEGER         READ_LINE
+%token PRINT  READ_INTEGER         READ_LINE PRINTCOMP
 %token LITERAL
 %token IDENTIFIER	  AND    OR    STATIC  INSTANCEOF
 %token LESS_EQUAL   GREATER_EQUAL  EQUAL   NOT_EQUAL
@@ -201,6 +201,7 @@ Stmt		    :	VariableDef
                 |	PrintStmt ';'
                 |	BreakStmt ';'
                 |	StmtBlock
+		| 	PrintCompStmt ';'
                 ;
 
 SimpleStmt      :	LValue '=' Expr
@@ -436,6 +437,12 @@ PrintStmt       :	PRINT '(' ExprList ')'
 						$$.stmt = new Print($3.elist, $1.loc);
 					}
                 ;
+
+PrintCompStmt	:	PRINTCOMP '(' ExprList ')'
+	      		{
+				$$.stmt = new PrintComp($3.elist, $1.loc);
+			}
+		;
 
 %%
     

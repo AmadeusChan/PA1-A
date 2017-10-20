@@ -293,7 +293,13 @@ public abstract class Tree {
     public static final int INT = VOID + 1; 
     public static final int BOOL = INT + 1; 
     public static final int STRING = BOOL + 1; 
-    public static final int COMPLEX= STRING + 1; 
+    public static final int COMPLEX = STRING + 1; 
+    public static final int COMPIMG = COMPLEX+ 1; 
+
+    public static final int GETCOMPRE = COMPIMG + 1; 
+    public static final int GETCOMPIM = GETCOMPRE + 1; 
+    public static final int INT2COMP = GETCOMPIM + 1; 
+
 
 
     public Location loc;
@@ -881,6 +887,15 @@ public abstract class Tree {
     		case NOT:
     			unaryOperatorToString(pw, "not");
     			break;
+    		case GETCOMPIM:
+    			unaryOperatorToString(pw, "im");
+    			break;
+    		case GETCOMPRE:
+    			unaryOperatorToString(pw, "re");
+    			break;
+    		case INT2COMP:
+    			unaryOperatorToString(pw, "compcast");
+    			break;
 			}
     	}
    }
@@ -1196,6 +1211,9 @@ public abstract class Tree {
     		case BOOL:
     			pw.println("boolconst " + value);
     			break;
+		case COMPIMG:
+			pw.println("imgconst " + value + "j");
+			break;
     		default:
     			pw.println("stringconst " + MiscUtils.quote((String)value));
     		}

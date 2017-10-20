@@ -33,6 +33,7 @@ import java.util.*;
 %token LESS_EQUAL   GREATER_EQUAL  EQUAL   NOT_EQUAL
 %token '+'  '-'  '*'  '/'  '%'  '='  '>'  '<'  '.'
 %token ','  ';'  '!'  '('  ')'  '['  ']'  '{'  '}'
+%token '@'  '$' '#'
 
 %left OR
 %left AND 
@@ -44,6 +45,7 @@ import java.util.*;
 %nonassoc '[' '.' 
 %nonassoc ')' EMPTY
 %nonassoc ELSE
+%right '@' '$' '#'
 
 %start Program
 
@@ -313,6 +315,18 @@ Expr            :	LValue
                 |	'!' Expr
                 	{
                 		$$.expr = new Tree.Unary(Tree.NOT, $2.expr, $1.loc);
+                	}
+                |	'@' Expr
+                	{
+                		$$.expr = new Tree.Unary(Tree.GETCOMPRE, $2.expr, $1.loc);
+                	}
+                |	'$' Expr
+                	{
+                		$$.expr = new Tree.Unary(Tree.GETCOMPIM, $2.expr, $1.loc);
+                	}
+                |	'#' Expr
+                	{
+                		$$.expr = new Tree.Unary(Tree.INT2COMP, $2.expr, $1.loc);
                 	}
                 |	READ_INTEGER '(' ')'
                 	{

@@ -293,6 +293,7 @@ public abstract class Tree {
     public static final int INT = VOID + 1; 
     public static final int BOOL = INT + 1; 
     public static final int STRING = BOOL + 1; 
+    public static final int COMPLEX= STRING + 1; 
 
 
     public Location loc;
@@ -1255,6 +1256,9 @@ public abstract class Tree {
     		case VOID:
     			pw.print("voidtype");
     			break;
+		case COMPLEX:
+			pw.print("comptype");
+			break;
     		default:
     			pw.print("stringtype");
     		}

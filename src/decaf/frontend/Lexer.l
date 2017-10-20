@@ -74,7 +74,7 @@ WHITESPACE			= ([ \t]+)
 "instanceof"		{ return keyword(Parser.INSTANCEOF);	}
 
 	// for complex
-"complex"			{ return keyword(Parser.COMPLEX) }
+"complex"			{ return keyword(Parser.COMPLEX); }
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}

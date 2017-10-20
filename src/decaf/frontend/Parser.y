@@ -90,6 +90,10 @@ Type            :	INT
                 	{
                 		$$.type = new Tree.TypeIdent(Tree.STRING, $1.loc);
                 	}
+		|	COMPLEX
+			{
+				$$.type = new Tree.TypeIdent(Tree.COMPLEX, $1.loc);
+			}
                 |	CLASS IDENTIFIER
                 	{
                 		$$.type = new Tree.TypeClass($2.ident, $1.loc);

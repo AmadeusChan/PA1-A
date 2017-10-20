@@ -1,7 +1,7 @@
 class Main {
 	static void main() {
-		//complex c;
-		//complex[] ca;
+		complex c;
+		complex[] ca;
 		//int [] ia;
 		x = "hello world!";
 		//c = 1 - 200000j;

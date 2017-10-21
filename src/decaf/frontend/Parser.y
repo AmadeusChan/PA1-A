@@ -27,6 +27,7 @@ import java.util.*;
 %token VOID   BOOL  INT   STRING  COMPLEX CLASS 
 %token NULL   EXTENDS     THIS     WHILE   FOR   
 %token IF     ELSE        RETURN   BREAK   NEW
+%token CASE DEFAULT
 %token PRINT  READ_INTEGER         READ_LINE PRINTCOMP
 %token LITERAL
 %token IDENTIFIER	  AND    OR    STATIC  INSTANCEOF
@@ -247,7 +248,33 @@ Call            :	Receiver IDENTIFIER '(' Actuals ')'
 					}
                 ;
 
-Expr            :	LValue
+DefaultExpr	:	DEFAULT ':' Expr ';'
+	    		{
+				$$.expr = $3.expr;
+			}
+		;
+
+
+CaseExprList	:	CaseExprList Constant ':' Expr ';'
+	     		{
+				$$.caseConstList.add($2.expr);
+				$$.caseExprList.add($4.expr);
+			}
+		|	/* empty */
+			{
+				$$ = new SemValue();
+				$$.caseConstList = new ArrayList<Expr>();
+				$$.caseExprList = new ArrayList<Expr>();
+			}
+	     	;
+
+Expr            :	CASE '(' Expr ')' '{' CaseExprList DefaultExpr '}' 
+			{
+				$$.expr = new Tree.Case(
+						$3.expr, $6.caseConstList, $6.caseExprList, $7.expr, $1.loc
+					);
+			}
+		|	LValue
 					{
 						$$.expr = $1.lvalue;
 					}

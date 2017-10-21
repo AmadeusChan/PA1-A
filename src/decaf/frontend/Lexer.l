@@ -37,7 +37,7 @@ HEX_INTEGER			= (0[Xx]{HEX_DIGIT}+)
 DEC_INTEGER			= ({DIGIT}+)
 INTEGER				= ({HEX_INTEGER}|{DEC_INTEGER})
 IDENTIFIER			= ([A-Za-z][_0-9A-Za-z]*)
-SIMPLE_OPERATOR		= ("+"|"-"|"*"|"/"|"%"|"="|"<"|">"|"."|","|";"|"!"|"("|")"|"["|"]"|"{"|"}"|"@"|"$"|"#")
+SIMPLE_OPERATOR		= ("+"|"-"|"*"|"/"|"%"|"="|"<"|">"|"."|","|";"|"!"|"("|")"|"["|"]"|"{"|"}"|"@"|"$"|"#"|":")
 S_COMMENT			= ("//"[^\r\n]*{NEWLINE})
 WHITESPACE			= ([ \t]+)
 
@@ -76,6 +76,10 @@ WHITESPACE			= ([ \t]+)
 	// for complex
 "complex"			{ return keyword(Parser.COMPLEX); }
 "PrintComp"			{ return keyword(Parser.PRINTCOMP); }
+	
+	// for case statements
+"case"				{ return keyword(Parser.CASE); }
+"default"			{ return keyword(Parser.DEFAULT); }
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}

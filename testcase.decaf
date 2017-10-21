@@ -1,0 +1,22 @@
+class Main {
+	static void main() {
+		complex c;
+		complex[] ca;
+		int [] ia;
+		z = case (n) {
+		    1: "Monday";
+		    2: "Tuesday";
+		    3: "Wednesday";
+		    4: "Thursday";
+		    5: "Friday";
+		    6: "Saturday";
+		    7: "Sunday";
+		    default: "<unknown>";
+		} + case(this.x.b)   {
+			"x": "hello world";
+			"z": "java";
+			default: decaf;
+		};
+		this.fun(case(x){1:2; default:1+4j;});
+	}
+}

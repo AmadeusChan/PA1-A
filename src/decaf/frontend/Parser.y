@@ -33,6 +33,7 @@ import java.util.*;
 %token IDENTIFIER	  AND    OR    STATIC  INSTANCEOF
 %token LESS_EQUAL   GREATER_EQUAL  EQUAL   NOT_EQUAL
 %token DCOPY SCOPY
+%token DO OD DOSEPERATOR
 %token '+'  '-'  '*'  '/'  '%'  '='  '>'  '<'  '.'
 %token ','  ';'  '!'  '('  ')'  '['  ']'  '{'  '}'
 %token '@'  '$' '#'
@@ -204,7 +205,34 @@ Stmt		    :	VariableDef
                 |	BreakStmt ';'
                 |	StmtBlock
 		| 	PrintCompStmt ';'
+		|	DoStmt ';'
                 ;
+
+DoStmt		:	DO DoBranchList DoSubStmt OD
+			{
+				$$.stmt = new Tree.DoOdLoop($2.doExprList, $2.doStmtList, $3.doExpr, $3.doStmt, $1.loc);
+			}
+		;
+
+DoBranchList	:	DoBranchList DoSubStmt DOSEPERATOR 
+	     		{
+				$$.doExprList.add($2.doExpr);
+				$$.doStmtList.add($2.doStmt);
+			}
+	     	|	/* empty */
+			{
+				$$ = new SemValue();
+				$$.doExprList = new ArrayList<Expr>();
+				$$.doStmtList = new ArrayList<Tree>();
+			}
+		;
+
+DoSubStmt	:	Expr ':' Stmt
+	  		{
+				$$.doExpr = $1.expr;
+				$$.doStmt = $3.stmt;
+			}
+		;
 
 SimpleStmt      :	LValue '=' Expr
 					{

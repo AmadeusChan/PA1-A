@@ -309,6 +309,7 @@ public abstract class Tree {
     public static final int DCOPYEXPR = SUPEREXPR + 1;
     public static final int SCOPYEXPR = DCOPYEXPR + 1;
 
+    public static final int DOODLOOP = SCOPYEXPR + 1;
 
 
     public Location loc;
@@ -501,6 +502,49 @@ public abstract class Tree {
     		}
     		pw.decIndent();
     	}
+    }
+
+    /** 
+     * A do-od loop
+     */
+    public static class DoOdLoop extends Tree {
+
+	    public List<Expr> exprList;
+	    public List<Tree> stmtList;
+
+	    public DoOdLoop(List<Expr> exprList, List<Tree> stmtList, Expr expr, Tree stmt, Location loc) {
+		    super(DOODLOOP, loc);
+		    this.exprList = exprList;
+		    this.stmtList = stmtList;
+		    this.exprList.add(expr);
+		    this.stmtList.add(stmt);
+	    }
+
+	    @Override
+	    public void accept(Visitor v) {
+		    v.visitDoOdLoop(this);
+	    }
+
+	    @Override
+	    public void printTo(IndentPrintWriter pw) {
+		    pw.println("do");
+		    pw.incIndent();
+		    pw.println("branches");
+		    pw.incIndent();
+
+		    int len = exprList.size();
+		    for (int i=0; i<len; ++i) {
+			    pw.println("branch");
+			    pw.incIndent();
+			    exprList.get(i).printTo(pw);
+			    stmtList.get(i).printTo(pw);
+			    pw.decIndent();
+		    }
+
+		    pw.decIndent();
+		    pw.decIndent();
+	    }
+
     }
 
     /**
@@ -1642,6 +1686,10 @@ public abstract class Tree {
 	}
 
 	public void visitSCopyExpr(SCopyExpr that) {
+		visitTree(that);
+	}
+
+	public void visitDoOdLoop(DoOdLoop that) {
 		visitTree(that);
 	}
 

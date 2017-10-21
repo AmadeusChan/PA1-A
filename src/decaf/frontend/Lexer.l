@@ -87,6 +87,10 @@ WHITESPACE			= ([ \t]+)
 	// keywords for copy
 "dcopy"				{ return keyword(Parser.DCOPY); }
 "scopy"				{ return keyword(Parser.SCOPY); } 
+	
+	// keywords for do-od statement
+"do"				{ return keyword(Parser.DO); }
+"od"				{ return keyword(Parser.OD); }
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}
@@ -95,6 +99,7 @@ WHITESPACE			= ([ \t]+)
 "!="				{ return operator(Parser.NOT_EQUAL);	}
 "&&"				{ return operator(Parser.AND);			}
 "||"				{ return operator(Parser.OR);			}
+"|||"				{ return operator(Parser.DOSEPERATOR); }
 {SIMPLE_OPERATOR}	{ return operator((int)yycharat(0));	}
 
 	// 识别常数的规则

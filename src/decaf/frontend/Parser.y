@@ -25,7 +25,7 @@ import java.util.*;
 %Jnoconstruct
 
 %token VOID   BOOL  INT   STRING  COMPLEX CLASS 
-%token NULL   EXTENDS     THIS     WHILE   FOR   
+%token NULL   EXTENDS     THIS SUPER     WHILE   FOR   
 %token IF     ELSE        RETURN   BREAK   NEW
 %token CASE DEFAULT
 %token PRINT  READ_INTEGER         READ_LINE PRINTCOMP
@@ -268,7 +268,11 @@ CaseExprList	:	CaseExprList Constant ':' Expr ';'
 			}
 	     	;
 
-Expr            :	CASE '(' Expr ')' '{' CaseExprList DefaultExpr '}' 
+Expr            :	SUPER 
+			{
+                		$$.expr = new Tree.SuperExpr($1.loc);
+			}
+		|	CASE '(' Expr ')' '{' CaseExprList DefaultExpr '}' 
 			{
 				$$.expr = new Tree.Case(
 						$3.expr, $6.caseConstList, $6.caseExprList, $7.expr, $1.loc

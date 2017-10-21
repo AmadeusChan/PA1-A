@@ -80,6 +80,9 @@ WHITESPACE			= ([ \t]+)
 	// for case statements
 "case"				{ return keyword(Parser.CASE); }
 "default"			{ return keyword(Parser.DEFAULT); }
+	
+	// for super his keyword
+"super"				{ return keyword(Parser.SUPER); }
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}

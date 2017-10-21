@@ -18,5 +18,12 @@ class Main {
 			default: decaf;
 		};
 		this.fun(case(x){1:2; default:1+4j;});
+		z = case(z){default:"z";};
+
+		super.fun(go);
+		super.z = a+b+c+$e;
+		c = super;
+		z = super.go(ff);
+		super.f(x);
 	}
 }

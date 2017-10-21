@@ -25,5 +25,16 @@ class Main {
 		c = super;
 		z = super.go(ff);
 		super.f(x);
+
+		a =   dcopy(z+3);
+		b = scopy(kk);
+		c = scopy(case(z){
+			43:23;
+			3:"a";
+			default:"sfsdfsf";
+		});
+
+		p1 = dcopy(p);
+		p1 = scopy(p);
 	}
 }

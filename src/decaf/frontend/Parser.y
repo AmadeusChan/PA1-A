@@ -32,6 +32,7 @@ import java.util.*;
 %token LITERAL
 %token IDENTIFIER	  AND    OR    STATIC  INSTANCEOF
 %token LESS_EQUAL   GREATER_EQUAL  EQUAL   NOT_EQUAL
+%token DCOPY SCOPY
 %token '+'  '-'  '*'  '/'  '%'  '='  '>'  '<'  '.'
 %token ','  ';'  '!'  '('  ')'  '['  ']'  '{'  '}'
 %token '@'  '$' '#'
@@ -268,7 +269,15 @@ CaseExprList	:	CaseExprList Constant ':' Expr ';'
 			}
 	     	;
 
-Expr            :	SUPER 
+Expr            :	DCOPY '(' Expr ')'
+			{
+				$$.expr = new Tree.DCopyExpr($3.expr, $1.loc);
+			}
+		|	SCOPY '(' Expr ')'
+			{
+				$$.expr = new Tree.SCopyExpr($3.expr, $1.loc);
+			}
+		|	SUPER 
 			{
                 		$$.expr = new Tree.SuperExpr($1.loc);
 			}

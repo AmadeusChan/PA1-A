@@ -81,8 +81,12 @@ WHITESPACE			= ([ \t]+)
 "case"				{ return keyword(Parser.CASE); }
 "default"			{ return keyword(Parser.DEFAULT); }
 	
-	// for super his keyword
+	// for super keyword
 "super"				{ return keyword(Parser.SUPER); }
+	
+	// keywords for copy
+"dcopy"				{ return keyword(Parser.DCOPY); }
+"scopy"				{ return keyword(Parser.SCOPY); } 
 
 	// 识别操作符的规则
 "<="				{ return operator(Parser.LESS_EQUAL);	}
